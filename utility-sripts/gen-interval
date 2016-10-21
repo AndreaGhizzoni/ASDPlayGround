@@ -1,0 +1,10 @@
+#!/bin/bash
+
+cd ../build/install/ASDPlayGround/bin
+./ASDPlayGround -gi 10 60 -o ../../../../data/interval-10 -m -100 -M 100
+./ASDPlayGround -gi 100 60 -o ../../../../data/interval-100 -m -100 -M 100
+./ASDPlayGround -gi 1000 60 -o ../../../../data/interval-1000 -m -100 -M 100
+./ASDPlayGround -gi 10000 60 -o ../../../../data/interval-10000 -m -100 -M 100
+./ASDPlayGround -gi 100000 60 -o ../../../../data/interval-100000 -m -100 -M 100
+./ASDPlayGround -gi 1000000 60 -o ../../../../data/interval-1000000 -m -100 -M 100
+

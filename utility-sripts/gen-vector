@@ -1,0 +1,12 @@
+#!/bin/bash
+
+cd ../build/install/ASDPlayGround/bin
+
+./ASDPlayGround -gv 10 -o ../../../../data/vector-10 -m -100 -M 100
+./ASDPlayGround -gv 100 -o ../../../../data/vector-100 -m -100 -M 100
+./ASDPlayGround -gv 1000 -o ../../../../data/vector-1000 -m -100 -M 100
+./ASDPlayGround -gv 10000 -o ../../../../data/vector-10000 -m -100 -M 100
+./ASDPlayGround -gv 100000 -o ../../../../data/vector-100000 -m -100 -M 100
+./ASDPlayGround -gv 1000000 -o ../../../../data/vector-1000000 -m -100 -M 100
+./ASDPlayGround -gv 10000000 -o ../../../../data/vector-10000000 -m -100 -M 100
+

@@ -1,0 +1,7 @@
+#!/bin/bash
+
+cd ../build/install/ASDPlayGround/bin
+
+./ASDPlayGround -gm 10 10 -o ../../../../data/matrix-10-10 -m -100 -M 100
+./ASDPlayGround -gm 100 100 -o ../../../../data/matrix-100-100 -m -100 -M 100
+./ASDPlayGround -gm 1000 1000 -o ../../../../data/matrix-1000-1000 -m -100 -M 100

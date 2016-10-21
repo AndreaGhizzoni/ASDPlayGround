@@ -1,0 +1,12 @@
+#!/bin/bash
+
+cd ../build/install/ASDPlayGround/bin
+
+./ASDPlayGround -gva 10 5 -o ../../../../data/vector-ascending-10 -m -100
+./ASDPlayGround -gva 100 50 -o ../../../../data/vector-ascending-100 -m -1000
+./ASDPlayGround -gva 1000 500 -o ../../../../data/vector-ascending-1000 -m -10000
+./ASDPlayGround -gva 10000 5000 -o ../../../../data/vector-ascending-10000 -m -100000
+./ASDPlayGround -gva 100000 50000 -o ../../../../data/vector-ascending-100000 -m -100000
+./ASDPlayGround -gva 1000000 500000 -o ../../../../data/vector-ascending-1000000 -m -100000
+./ASDPlayGround -gva 10000000 5000000 -o ../../../../data/vector-ascending-10000000 -m -100000
+
