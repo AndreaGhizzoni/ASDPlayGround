@@ -5,6 +5,12 @@
 .idea
 .gradle
 
+### distribution
+build/libs/
+build/resources/
+build/scripts/
+build/tmp/
+
 ### input files
 data/
 
