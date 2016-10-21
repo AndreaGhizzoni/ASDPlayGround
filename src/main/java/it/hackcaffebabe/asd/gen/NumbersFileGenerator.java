@@ -208,6 +208,7 @@ public class NumbersFileGenerator {
                 gen = base - step;
 
             this.pS.printf("%d ", gen);
+            base = gen;
         }
 
         this.pS.flush();

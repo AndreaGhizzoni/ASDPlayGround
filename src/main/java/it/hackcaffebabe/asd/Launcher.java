@@ -25,7 +25,8 @@ public class Launcher {
         boolean generateVectorFlag = ARGS_CLI.hasOption( OPTION_GEN_VECTOR_CMD );
         boolean generateMatrixFlag = ARGS_CLI.hasOption( OPTION_GEN_MATRIX_CMD );
         boolean generateIntervalFlag = ARGS_CLI.hasOption( OPTION_GEN_INTERVAL_CMD );
-        boolean generateOrderedVectorFlag = ARGS_CLI.hasOption(OPTION_GEN_ORDERED_ASC_VECTOR_CMD);
+        boolean generateOrderedVectorASCFlag = ARGS_CLI.hasOption(OPTION_GEN_ORDERED_ASC_VECTOR_CMD);
+        boolean generateOrderedVectorDESFlag = ARGS_CLI.hasOption(OPTION_GEN_ORDERED_DES_VECTOR_CMD);
         if( generateVectorFlag ) {
             Integer length = new Integer(ARGS_CLI.getOptionValue( OPTION_GEN_VECTOR_CMD ));
             if( length <= 0 ) {
@@ -35,7 +36,7 @@ public class Launcher {
             }
 
             try {
-                NumbersFileGenerator nfg = getOptionalArgs(false);
+                NumbersFileGenerator nfg = getOptionalArgs(false, false);
                 nfg.generateRandomVector(length);
             } catch (FileNotFoundException e) {
                 e.printStackTrace(System.err);
@@ -57,7 +58,7 @@ public class Launcher {
             }
 
             try {
-                NumbersFileGenerator nfg = getOptionalArgs(false);
+                NumbersFileGenerator nfg = getOptionalArgs(false, false);
                 nfg.generateRandomMatrix(rows, cols);
             } catch (FileNotFoundException e) {
                 e.printStackTrace(System.err);
@@ -82,33 +83,59 @@ public class Launcher {
             }
 
             try{
-                NumbersFileGenerator nfg = getOptionalArgs(false);
+                NumbersFileGenerator nfg = getOptionalArgs(false, false);
                 nfg.generateRandomInterval(length, maxStep);
             }catch (FileNotFoundException e){
                 e.printStackTrace(System.err);
             }
-        }else if( generateOrderedVectorFlag ) {
+
+        }else if( generateOrderedVectorASCFlag ) {
             String[] ordered_vector_args = ARGS_CLI.getOptionValues(OPTION_GEN_ORDERED_ASC_VECTOR_CMD);
             Integer length = new Integer(ordered_vector_args[0]);
-            if( length <= 0 ){
-                System.out.println("Argument in -"+ OPTION_GEN_ORDERED_ASC_VECTOR_CMD +
-                        " | --"+ OPTION_GEN_ORDERED_ASC_VECTOR_CMD_LONG +" is invalid: " +
+            if (length <= 0) {
+                System.out.println("Argument in -" + OPTION_GEN_ORDERED_ASC_VECTOR_CMD +
+                        " | --" + OPTION_GEN_ORDERED_ASC_VECTOR_CMD_LONG + " is invalid: " +
                         "vector length <= 0.");
                 printHelpAndExit();
             }
 
             Integer maxStep = new Integer(ordered_vector_args[1]);
-            if( maxStep < 1 ){
-                System.out.println("Argument in -"+ OPTION_GEN_ORDERED_ASC_VECTOR_CMD +
-                        " | --"+ OPTION_GEN_ORDERED_ASC_VECTOR_CMD_LONG +" is invalid: " +
+            if (maxStep < 1) {
+                System.out.println("Argument in -" + OPTION_GEN_ORDERED_ASC_VECTOR_CMD +
+                        " | --" + OPTION_GEN_ORDERED_ASC_VECTOR_CMD_LONG + " is invalid: " +
                         "maxStep < 1.");
                 printHelpAndExit();
             }
 
-            try{
-                NumbersFileGenerator nfg = getOptionalArgs( true );
+            try {
+                NumbersFileGenerator nfg = getOptionalArgs(true, false);
                 nfg.generateOrderedVectorASC(length, maxStep);
-            }catch (FileNotFoundException e){
+            } catch (FileNotFoundException e) {
+                e.printStackTrace(System.err);
+            }
+
+        }else if(generateOrderedVectorDESFlag){
+            String[] ordered_vector_args = ARGS_CLI.getOptionValues(OPTION_GEN_ORDERED_DES_VECTOR_CMD);
+            Integer length = new Integer(ordered_vector_args[0]);
+            if (length <= 0) {
+                System.out.println("Argument in -" + OPTION_GEN_ORDERED_DES_VECTOR_CMD +
+                        " | --" + OPTION_GEN_ORDERED_DES_VECTOR_CMD_LONG + " is invalid: " +
+                        "vector length <= 0.");
+                printHelpAndExit();
+            }
+
+            Integer maxStep = new Integer(ordered_vector_args[1]);
+            if (maxStep < 1) {
+                System.out.println("Argument in -" + OPTION_GEN_ORDERED_DES_VECTOR_CMD +
+                        " | --" + OPTION_GEN_ORDERED_DES_VECTOR_CMD_LONG + " is invalid: " +
+                        "maxStep < 1.");
+                printHelpAndExit();
+            }
+
+            try {
+                NumbersFileGenerator nfg = getOptionalArgs(false, true);
+                nfg.generateOrderedVectorDES(length, maxStep);
+            } catch (FileNotFoundException e) {
                 e.printStackTrace(System.err);
             }
         }else{
@@ -119,14 +146,16 @@ public class Launcher {
 //==============================================================================
 //  UTILITY METHODS
 //==============================================================================
-    private static NumbersFileGenerator getOptionalArgs( boolean skipMaxFlag )
+    private static NumbersFileGenerator getOptionalArgs( boolean skipMaxFlag,
+                                                         boolean skipMinFlag )
             throws FileNotFoundException {
+
         boolean outFileFlag = ARGS_CLI.hasOption( OPTION_OUTPUT_CMD );
         if( !outFileFlag )
             printGenerateMessageHelpAndExit("File path");
 
         boolean minFlag = ARGS_CLI.hasOption( OPTION_MINIMUM_CMD );
-        if( !minFlag )
+        if( !minFlag && !skipMinFlag )
             printGenerateMessageHelpAndExit("Lower bound of numbers");
 
         boolean maxFlag = ARGS_CLI.hasOption( OPTION_MAXIMUM_CMD );
@@ -134,7 +163,9 @@ public class Launcher {
             printGenerateMessageHelpAndExit("Upper bound of numbers");
 
         String outFile = ARGS_CLI.getOptionValue( OPTION_OUTPUT_CMD );
-        Integer min = new Integer(ARGS_CLI.getOptionValue( OPTION_MINIMUM_CMD ));
+        Integer min = Integer.MIN_VALUE;
+        if( !skipMinFlag )
+            min = new Integer(ARGS_CLI.getOptionValue( OPTION_MINIMUM_CMD ));
         Integer max = Integer.MAX_VALUE;
         if( !skipMaxFlag )
             max = new Integer(ARGS_CLI.getOptionValue( OPTION_MAXIMUM_CMD ));
@@ -198,14 +229,23 @@ public class Launcher {
             generateInterval.setArgs(2);
             ARGS_OPTIONS.addOption(generateInterval);
 
-            Option generateOrderedVector = new Option(
+            Option generateOrderedVectorASC = new Option(
                     OPTION_GEN_ORDERED_ASC_VECTOR_CMD,
                     OPTION_GEN_ORDERED_ASC_VECTOR_CMD_LONG,
                     true,
                     OPTION_GEN_ORDERED_ASC_VECTOR_DESCRIPTION
             );
-            generateOrderedVector.setArgs(2);
-            ARGS_OPTIONS.addOption(generateOrderedVector);
+            generateOrderedVectorASC.setArgs(2);
+            ARGS_OPTIONS.addOption(generateOrderedVectorASC);
+
+            Option generatedOrderedVectorDES = new Option(
+                    OPTION_GEN_ORDERED_DES_VECTOR_CMD,
+                    OPTION_GEN_ORDERED_DES_VECTOR_CMD_LONG,
+                    true,
+                    OPTION_GEN_ORDERED_DES_VECTOR_DESCRIPTION
+            );
+            generatedOrderedVectorDES.setArgs(2);
+            ARGS_OPTIONS.addOption(generatedOrderedVectorDES);
 
             // options used to generate random stuff
             ARGS_OPTIONS.addOption(

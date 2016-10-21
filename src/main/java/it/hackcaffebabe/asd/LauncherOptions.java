@@ -26,6 +26,17 @@ public class LauncherOptions {
             "between two values. Option -M | --max will be ignored. "+
             "See options: -o -m -s.";
 
+    public static final String OPTION_GEN_ORDERED_DES_VECTOR_CMD = "gvd";
+    public static final String OPTION_GEN_ORDERED_DES_VECTOR_CMD_LONG =
+            "generate-vector-descending";
+    public static final String OPTION_GEN_ORDERED_DES_VECTOR_DESCRIPTION =
+            "Generate a file with vector, in descending ordered, of " +
+            "integer numbers in it. " +
+            "<arg> is intended as <length> <maxStep> where length is " +
+            "the size of generated vector and <maxStep> the max gap " +
+            "between two values. Option -m | --min will be ignored. "+
+            "See options: -o -M -s.";
+
     public static final String OPTION_GEN_MATRIX_CMD = "gm";
     public static final String OPTION_GEN_MATRIX_CMD_LONG = "generate-matrix";
     public static final String OPTION_GEN_MATRIX_DESCRIPTION =
