@@ -20,11 +20,12 @@ public class RandUtil {
     }
 
     /**
-     * TODO add doc
-     * @param min
-     * @param max
-     * @return
-     * @throws IllegalArgumentException
+     * This method generate a random long number in range min <= x < max using
+     * current time as seed.
+     * @param min {@link Long} the lower bound of random number.
+     * @param max {@link Long} the upper bound of random number.
+     * @throws IllegalArgumentException if min > max or some argument are null.
+     * @return {@link Long} as generate random number.
      */
     public static Long random( Long min, Long max )
             throws IllegalArgumentException{
@@ -46,12 +47,13 @@ public class RandUtil {
     }
 
     /**
-     * TODO add doc
-     * @param seed
-     * @param min
-     * @param max
-     * @return
-     * @throws IllegalArgumentException
+     * This method generate a random long number in range min <= x < max using
+     * given long argument as seed.
+     * @param seed {@link Long} the seed to generate random number.
+     * @param min {@link Long} the lower bound of random number.
+     * @param max {@link Long} the upper bound of random number.
+     * @throws IllegalArgumentException if min > max or some argument are null.
+     * @return {@link Long} as generate random number.
      */
     public static Long random( long seed, Long min, Long max )
             throws IllegalArgumentException{
@@ -80,12 +82,13 @@ public class RandUtil {
     }
 
     /**
-     * TODO add doc
-     * @param r
-     * @param min
-     * @param max
-     * @return
-     * @throws IllegalArgumentException
+     * This method generate a random long number using the {@link Random}
+     * generator given as argument.
+     * @param r {@link Random} the random number generator.
+     * @param min {@link Long} the lower bound of random number.
+     * @param max {@link Long} the upper bound of random number.
+     * @throws IllegalArgumentException if min > max or some argument are null.
+     * @return {@link Long} as generate random number.
      */
     public static Long random( Random r, Long min, Long max )
             throws IllegalArgumentException {
