@@ -28,7 +28,7 @@ public class Launcher {
         boolean generateOrderedVectorASCFlag = ARGS_CLI.hasOption(OPTION_GEN_ORDERED_ASC_VECTOR_CMD);
         boolean generateOrderedVectorDESFlag = ARGS_CLI.hasOption(OPTION_GEN_ORDERED_DES_VECTOR_CMD);
         if( generateVectorFlag ) {
-            Integer length = new Integer(ARGS_CLI.getOptionValue( OPTION_GEN_VECTOR_CMD ));
+            Long length = new Long(ARGS_CLI.getOptionValue( OPTION_GEN_VECTOR_CMD ));
             if( length <= 0 ) {
                 System.out.println("Argument in -"+OPTION_GEN_VECTOR_CMD+
                         " | --"+OPTION_GEN_VECTOR_CMD_LONG+" is invalid: <= 0.");
@@ -44,13 +44,13 @@ public class Launcher {
 
         }else if( generateMatrixFlag ){
             String[] matrix_args = ARGS_CLI.getOptionValues( OPTION_GEN_MATRIX_CMD );
-            Integer rows = new Integer(matrix_args[0]);
+            Long rows = new Long(matrix_args[0]);
             if( rows <= 0 ){
                 System.out.println("Argument in -"+OPTION_GEN_MATRIX_CMD+
                         " | --"+OPTION_GEN_MATRIX_CMD_LONG+" is invalid: rows <= 0.");
                 printHelpAndExit();
             }
-            Integer cols = new Integer(matrix_args[1]);
+            Long cols = new Long(matrix_args[1]);
             if( cols <= 0){
                 System.out.println("Argument in -"+OPTION_GEN_MATRIX_CMD+
                         "| --"+OPTION_GEN_MATRIX_CMD_LONG+" is invalid: cols <= 0.");
@@ -66,7 +66,7 @@ public class Launcher {
 
         }else if( generateIntervalFlag ) {
             String[] interval_args = ARGS_CLI.getOptionValues( OPTION_GEN_INTERVAL_CMD );
-            Integer length = new Integer(interval_args[0]);
+            Long length = new Long(interval_args[0]);
             if( length <= 0 ){
                 System.out.println("Argument in -"+OPTION_GEN_INTERVAL_CMD+
                         " | --"+OPTION_GEN_INTERVAL_CMD_LONG+" is invalid: " +
@@ -74,7 +74,7 @@ public class Launcher {
                 printHelpAndExit();
             }
 
-            Integer maxStep = new Integer(interval_args[1]);
+            Long maxStep = new Long(interval_args[1]);
             if( maxStep < 1 ){
                 System.out.println("Argument in -"+OPTION_GEN_INTERVAL_CMD+
                         " | --"+OPTION_GEN_INTERVAL_CMD_LONG+" is invalid: " +
@@ -91,7 +91,7 @@ public class Launcher {
 
         }else if( generateOrderedVectorASCFlag ) {
             String[] ordered_vector_args = ARGS_CLI.getOptionValues(OPTION_GEN_ORDERED_ASC_VECTOR_CMD);
-            Integer length = new Integer(ordered_vector_args[0]);
+            Long length = new Long(ordered_vector_args[0]);
             if (length <= 0) {
                 System.out.println("Argument in -" + OPTION_GEN_ORDERED_ASC_VECTOR_CMD +
                         " | --" + OPTION_GEN_ORDERED_ASC_VECTOR_CMD_LONG + " is invalid: " +
@@ -99,7 +99,7 @@ public class Launcher {
                 printHelpAndExit();
             }
 
-            Integer maxStep = new Integer(ordered_vector_args[1]);
+            Long maxStep = new Long(ordered_vector_args[1]);
             if (maxStep < 1) {
                 System.out.println("Argument in -" + OPTION_GEN_ORDERED_ASC_VECTOR_CMD +
                         " | --" + OPTION_GEN_ORDERED_ASC_VECTOR_CMD_LONG + " is invalid: " +
@@ -116,7 +116,7 @@ public class Launcher {
 
         }else if(generateOrderedVectorDESFlag){
             String[] ordered_vector_args = ARGS_CLI.getOptionValues(OPTION_GEN_ORDERED_DES_VECTOR_CMD);
-            Integer length = new Integer(ordered_vector_args[0]);
+            Long length = new Long(ordered_vector_args[0]);
             if (length <= 0) {
                 System.out.println("Argument in -" + OPTION_GEN_ORDERED_DES_VECTOR_CMD +
                         " | --" + OPTION_GEN_ORDERED_DES_VECTOR_CMD_LONG + " is invalid: " +
@@ -124,7 +124,7 @@ public class Launcher {
                 printHelpAndExit();
             }
 
-            Integer maxStep = new Integer(ordered_vector_args[1]);
+            Long maxStep = new Long(ordered_vector_args[1]);
             if (maxStep < 1) {
                 System.out.println("Argument in -" + OPTION_GEN_ORDERED_DES_VECTOR_CMD +
                         " | --" + OPTION_GEN_ORDERED_DES_VECTOR_CMD_LONG + " is invalid: " +
@@ -163,12 +163,12 @@ public class Launcher {
             printGenerateMessageHelpAndExit("Upper bound of numbers");
 
         String outFile = ARGS_CLI.getOptionValue( OPTION_OUTPUT_CMD );
-        Integer min = Integer.MIN_VALUE;
+        Long min = Long.MIN_VALUE;
         if( !skipMinFlag )
-            min = new Integer(ARGS_CLI.getOptionValue( OPTION_MINIMUM_CMD ));
-        Integer max = Integer.MAX_VALUE;
+            min = new Long(ARGS_CLI.getOptionValue( OPTION_MINIMUM_CMD ));
+        Long max = Long.MAX_VALUE;
         if( !skipMaxFlag )
-            max = new Integer(ARGS_CLI.getOptionValue( OPTION_MAXIMUM_CMD ));
+            max = new Long(ARGS_CLI.getOptionValue( OPTION_MAXIMUM_CMD ));
         Long seed;
         if( ARGS_CLI.getOptionValue( OPTION_SEED_CMD ) == null ){
             seed = System.nanoTime();

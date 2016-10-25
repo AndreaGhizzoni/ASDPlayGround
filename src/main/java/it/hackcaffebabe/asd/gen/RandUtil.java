@@ -20,6 +20,18 @@ public class RandUtil {
     }
 
     /**
+     * TODO add doc
+     * @param min
+     * @param max
+     * @return
+     * @throws IllegalArgumentException
+     */
+    public static Long random( Long min, Long max )
+            throws IllegalArgumentException{
+        return random(System.nanoTime(), min, max);
+    }
+
+    /**
      * This method generate a random number in range min <= x < max using given
      * long argument as seed.
      * @param seed {@link Long} the seed to generate random number.
@@ -29,6 +41,19 @@ public class RandUtil {
      * @return {@link Integer} as generate random number.
      */
     public static Integer random( long seed, Integer min, Integer max )
+            throws IllegalArgumentException{
+        return random( new Random(seed), min, max);
+    }
+
+    /**
+     * TODO add doc
+     * @param seed
+     * @param min
+     * @param max
+     * @return
+     * @throws IllegalArgumentException
+     */
+    public static Long random( long seed, Long min, Long max )
             throws IllegalArgumentException{
         return random( new Random(seed), min, max);
     }
@@ -52,5 +77,26 @@ public class RandUtil {
             throw new IllegalArgumentException("Argument given is min > max.");
 
         return r.nextInt((max-min)+1)+min;
+    }
+
+    /**
+     * TODO add doc
+     * @param r
+     * @param min
+     * @param max
+     * @return
+     * @throws IllegalArgumentException
+     */
+    public static Long random( Random r, Long min, Long max )
+            throws IllegalArgumentException {
+
+        if( r == null )
+            throw new IllegalArgumentException("Argument Random given is null.");
+        if( min == null || max == null )
+            throw new IllegalArgumentException("Argument min|max given is null.");
+        if( min > max )
+            throw new IllegalArgumentException("Argument given is min > max.");
+
+        return ((long)(r.nextDouble()*(max-min)))+min;
     }
 }

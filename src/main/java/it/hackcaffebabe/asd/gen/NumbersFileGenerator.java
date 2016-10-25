@@ -11,7 +11,8 @@ import java.util.Random;
 public class NumbersFileGenerator {
     private PrintStream pS;
     private long seed;
-    private Integer min, max;
+//    private Integer min, max;
+    private Long min, max;
 
     /**
      * This constructor make a NumbersFileGenerator object with a seed given
@@ -52,13 +53,13 @@ public class NumbersFileGenerator {
 
     /**
      * This method set the lower and upper bound of random number generator.
-     * @param min {@link Integer} the lower bound.
-     * @param max {@link Integer} the upper bound.
+     * @param min {@link Long} the lower bound.
+     * @param max {@link Long} the upper bound.
      * @throws IllegalArgumentException if argument min or max are null, or
      *                                  if min > max.
      * @return {@link NumbersFileGenerator} the object with bounds set.
      */
-    public NumbersFileGenerator setBound( Integer min, Integer max )
+    public NumbersFileGenerator setBound( Long min, Long max )
             throws IllegalArgumentException{
 
         if( min == null )
@@ -76,10 +77,10 @@ public class NumbersFileGenerator {
     /**
      * This method generate a random Vector structure, with given length, seed,
      * file and bounds set.
-     * @param amount {@link Integer} the length's Vector.
+     * @param amount {@link Long} the length's Vector.
      * @throws IllegalArgumentException if length given is null or <= 0.
      */
-    public void generateRandomVector( Integer amount )
+    public void generateRandomVector( Long amount )
             throws IllegalArgumentException{
 
         generateRandomVector(
@@ -96,7 +97,7 @@ public class NumbersFileGenerator {
      * generator, Vector's length and a flag to print into the print stream the
      * vector's length.
      */
-    private void generateRandomVector( PrintStream pS, Random r, Integer amount,
+    private void generateRandomVector( PrintStream pS, Random r, Long amount,
                        boolean printAmount ) throws IllegalArgumentException{
 
         if( amount == null )
@@ -115,11 +116,11 @@ public class NumbersFileGenerator {
 
     /**
      * This method generate a random matrix into file with given dimensions.
-     * @param rows {@link Integer} the number of rows.
-     * @param cols {@link Integer} the number of columns.
+     * @param rows {@link Long} the number of rows.
+     * @param cols {@link Long} the number of columns.
      * @throws IllegalArgumentException if row or columns ae null or <= 0.
      */
-    public void generateRandomMatrix( Integer rows, Integer cols )
+    public void generateRandomMatrix( Long rows, Long cols )
             throws IllegalArgumentException{
 
         if( rows == null )
@@ -146,13 +147,13 @@ public class NumbersFileGenerator {
      * This method generate a set of interval and printed into file.
      * An interval is pair of two integers <x, y> where x < y and at least
      * (y-x) >= 1.
-     * @param length {@link Integer} the numbers of interval to generate.
-     * @param maxStep {@link Integer} the maximum step between lower and upper
+     * @param length {@link Long} the numbers of interval to generate.
+     * @param maxStep {@link Long} the maximum step between lower and upper
      *                               bound of interval.
      * @throws IllegalArgumentException if arguments given are null or <= 0|1
      *                                  respectively
      */
-    public void generateRandomInterval( Integer length, Integer maxStep )
+    public void generateRandomInterval( Long length, Long maxStep )
             throws IllegalArgumentException{
 
         if( length == null )
@@ -166,10 +167,10 @@ public class NumbersFileGenerator {
         Random r = new Random( this.seed );
 
         this.pS.println(length);
-        Integer base, step;
-        for( Integer i=0; i<length; i++ ){
+        Long base, step;
+        for( Long i=0L; i<length; i++ ){
             base = RandUtil.random( r, this.min, this.max );
-            step = RandUtil.random( 1, maxStep );
+            step = RandUtil.random( 1L, maxStep );
             this.pS.printf("%d %d\n", base, base+step);
         }
 
@@ -179,8 +180,8 @@ public class NumbersFileGenerator {
 
     /* This method generate an ordered vector in ascending or in descending
      * order */
-    private void generateOrderedVector( Random r, Integer length,
-                                        Integer maxStep, boolean isAscending )
+    private void generateOrderedVector( Random r, Long length,
+                                        Long maxStep, boolean isAscending )
             throws IllegalArgumentException{
 
         if( length == null )
@@ -192,16 +193,16 @@ public class NumbersFileGenerator {
         if( maxStep <= 1 )
             throw new IllegalArgumentException("Argument maxStep given is <= 1.");
 
-        Integer base;
+        Long base;
         if( isAscending )
             base = this.min;
         else
             base = this.max;
 
         this.pS.println(length);
-        Integer step, gen;
-        for( Integer i=0; i<length; i++ ) {
-            step = RandUtil.random( r, 1, maxStep );
+        Long step, gen;
+        for( Long i=0L; i<length; i++ ) {
+            step = RandUtil.random( r, 1L, maxStep );
             if( isAscending )
                 gen = base + step;
             else
@@ -218,12 +219,12 @@ public class NumbersFileGenerator {
     /**
      * This method generate a vector with all elements ordered as the follow:
      * x1 < x2 < [...] < xn
-     * @param length {@link Integer} the vector length.
-     * @param maxStep {@link Integer} the maximum step between xi and xj where
+     * @param length {@link Long} the vector length.
+     * @param maxStep {@link Long} the maximum step between xi and xj where
      *                               i < j.
      * @throws IllegalArgumentException if arguments are null or <= 0.
      */
-    public void generateOrderedVectorASC( Integer length, Integer maxStep )
+    public void generateOrderedVectorASC( Long length, Long maxStep )
             throws IllegalArgumentException {
 
         generateOrderedVector( new Random(this.seed), length, maxStep, true );
@@ -232,12 +233,12 @@ public class NumbersFileGenerator {
     /**
      * This method generate a vector with all elements ordered as the follow:
      * x1 > x2 > [...] > xn
-     * @param length {@link Integer} the vector length.
-     * @param maxStep {@link Integer} the maximum step between xi and xj where
+     * @param length {@link Long} the vector length.
+     * @param maxStep {@link Long} the maximum step between xi and xj where
      *                               i > j.
      * @throws IllegalArgumentException if arguments are null or <= 0.
      */
-    public void generateOrderedVectorDES( Integer length, Integer maxStep )
+    public void generateOrderedVectorDES( Long length, Long maxStep )
             throws IllegalArgumentException{
 
         generateOrderedVector( new Random(this.seed), length, maxStep, false );
