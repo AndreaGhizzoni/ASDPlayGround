@@ -74,17 +74,9 @@ public class Launcher {
                 printHelpAndExit();
             }
 
-            Long maxStep = new Long(interval_args[1]);
-            if( maxStep < 1 ){
-                System.out.println("Argument in -"+OPTION_GEN_INTERVAL_CMD+
-                        " | --"+OPTION_GEN_INTERVAL_CMD_LONG+" is invalid: " +
-                        "maxStep < 1.");
-                printHelpAndExit();
-            }
-
             try{
                 NumbersFileGenerator nfg = getOptionalArgs(false, false);
-                nfg.generateRandomInterval(length, maxStep);
+                nfg.generateRandomInterval(length);
             }catch (FileNotFoundException e){
                 e.printStackTrace(System.err);
             }
@@ -226,7 +218,7 @@ public class Launcher {
                     OPTION_GEN_INTERVAL_CMD_LONG,
                     true,
                     OPTION_GEN_INTERVAL_DESCRIPTION);
-            generateInterval.setArgs(2);
+            generateInterval.setArgs(1);
             ARGS_OPTIONS.addOption(generateInterval);
 
             Option generateOrderedVectorASC = new Option(

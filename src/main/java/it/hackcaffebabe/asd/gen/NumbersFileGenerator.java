@@ -11,7 +11,6 @@ import java.util.Random;
 public class NumbersFileGenerator {
     private PrintStream pS;
     private long seed;
-//    private Integer min, max;
     private Long min, max;
 
     /**
@@ -66,8 +65,10 @@ public class NumbersFileGenerator {
             throw new IllegalArgumentException("Argument min given is null.");
         if( max == null )
             throw new IllegalArgumentException("Argument max given is null.");
-        if( min > max )
+        if( min.compareTo(max) > 0 ) // min < max
             throw new IllegalArgumentException("Argument given is min > max.");
+        if( min.compareTo(max) == 0 ) // min == max
+            throw new IllegalArgumentException("Argument given is min = max.");
 
         this.min = min;
         this.max = max;
@@ -148,30 +149,25 @@ public class NumbersFileGenerator {
      * An interval is pair of two integers <x, y> where x < y and at least
      * (y-x) >= 1.
      * @param length {@link Long} the numbers of interval to generate.
-     * @param maxStep {@link Long} the maximum step between lower and upper
-     *                               bound of interval.
-     * @throws IllegalArgumentException if arguments given are null or <= 0|1
+     * @throws IllegalArgumentException if argument given is null or <= 0
      *                                  respectively
      */
-    public void generateRandomInterval( Long length, Long maxStep )
+    public void generateRandomInterval( Long length )
             throws IllegalArgumentException{
 
         if( length == null )
             throw new IllegalArgumentException("Argument length given is null.");
-        if( maxStep == null)
-            throw new IllegalArgumentException("Argument maxStep given is null.");
-        if( maxStep <= 1 || length <= 0 )
-            throw new IllegalArgumentException("Argument maxStep <= 1 or length "+
-                    "given <= 0.");
+        if( length <= 0 )
+            throw new IllegalArgumentException("Argument length given is <= 0.");
 
         Random r = new Random( this.seed );
 
         this.pS.println(length);
-        Long base, step;
+        Long intervalLower, intervalUpper;
         for( Long i=0L; i<length; i++ ){
-            base = RandUtil.random( r, this.min, this.max );
-            step = RandUtil.random( 1L, maxStep );
-            this.pS.printf("%d %d\n", base, base+step);
+            intervalLower = RandUtil.random( r, this.min, this.max-1 );
+            intervalUpper = RandUtil.random( r, intervalLower, this.max );
+            this.pS.printf("%d %d\n", intervalLower, intervalUpper);
         }
 
         this.pS.flush();

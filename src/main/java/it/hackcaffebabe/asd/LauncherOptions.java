@@ -48,10 +48,8 @@ public class LauncherOptions {
     public static final String OPTION_GEN_INTERVAL_CMD_LONG = "generate-interval";
     public static final String OPTION_GEN_INTERVAL_DESCRIPTION =
             "Generate a file with a list of interval in it. "+
-            "<arg> is intended as <n> <maxStep> where n is the amount of" +
-            " intervals to generate and <maxStep> is the maximum " +
-            "length of interval. Length is generated randomly: " +
-            "1<= length < maxStep. See options: -o -m -M -s.";
+            "<arg> is the amount of intervals to generate. " +
+            "See options: -o -m -M -s.";
 
     public static final String OPTION_OUTPUT_CMD = "o";
     public static final String OPTION_OUTPUT_CMD_LONG = "output";
